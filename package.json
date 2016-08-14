@@ -1,0 +1,29 @@
+{
+  "name": "belajarmean",
+  "version": "1.0.0",
+  "description": "ini adalah aplikasi pembelajaran MEAN",
+  "main": "index.js",
+  "scripts": {
+    "test": "e",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "juancesar123"
+  },
+  "keywords": [
+    "belajar",
+    "crud",
+    "MEAN"
+  ],
+  "author": "juan ceasar andrianto",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.1",
+    "body-parser": "^1.15.2",
+    "mongojs": "^2.4.0",
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {}
+}

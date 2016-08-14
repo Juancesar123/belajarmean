@@ -1,0 +1,77 @@
+html(ng-app='mainapp')
+  head
+    title Belajar Mean
+    link(rel='stylesheet', href='bootstrap-3.3.7-dist/css/bootstrap.min.css')
+    script(src='js/angular.min.js')
+    script.
+      var app = angular.module("mainapp",[]);
+      app.controller("appctrl",function($scope,$http){
+      $scope.getdata=function(){
+      $http.get("ambil_bukutamu").success(function(data){
+      $scope.bukutamu = data;
+      })
+      }
+      $scope.getdata();
+      $scope.simpan=function(){
+      var nama = $scope.nama;
+      var notlp = $scope.notlp;
+      var alamat = $scope.alamat;
+      $http.post("simpanbukutamu",{nama:nama,notlp:notlp,alamat:alamat}).success(function(){
+      alert("data sukses di input");
+      $scope.getdata();
+      })
+      }
+      $scope.edit=function(item){
+      $scope.id = item._id;
+      $scope.nama = item.nama;
+      $scope.notlp = item.notlp;
+      $scope.alamat = item.alamat;
+      }
+      $scope.actionedit=function(){
+      var nama = $scope.nama;
+      var notlp = $scope.notlp;
+      var alamat = $scope.alamat;
+      var id = $scope.id;
+      $http.post("editbukutamu",{id:id,nama:nama,notlp:notlp,alamat:alamat}).success(function(){
+      alert("data sukses di ubah");
+      $scope.getdata();
+      })
+      }
+      $scope.hapus=function(item){
+      $scope.id = item._id;
+      var id = $scope.id;
+      $http.post("hapusbukutamu",{id:id}).success(function(){
+      alert("data sukses di hapus");
+      $scope.getdata();
+      })
+      }
+      })
+  body(ng-controller='appctrl')
+    .container
+      h1 Buku Tamu
+      .col-md-4
+        .form-group
+          label Nama
+          input.form-control(type='text', ng-model='nama')
+        .form-group
+          label No Telpon
+          input.form-control(type='number', ng-model='notlp')
+        .form-group
+          label alamat
+          textarea.form-control(ng-model='alamat')
+        button.btn.btn-primary(ng-click='simpan()') Simpan
+        button.btn.btn-success(ng-click='actionedit()') Simpan
+      table.table.bordered
+        thead
+          th Nama
+          th Nomor Telpon
+          th alamat
+          th Action
+        tbody
+          tr(ng-repeat='item in bukutamu')
+            td {{item.nama}}
+            td {{item.notlp}}
+            td {{item.alamat}}
+            td
+              button.btn.btn-success(ng-click='edit(item)') edit
+              button.btn.btn-danger(ng-click='hapus(item)') hapus
